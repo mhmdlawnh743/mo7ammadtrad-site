@@ -1,0 +1,244 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>لوحة الإدارة | كتبي</title>
+<link rel="icon" href="profile.jpg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@1,700&family=Tajawal:wght@400;500;800&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#000;--fg:#fff;--mut:#a3a3a3;--card:#0e0e0e;--ln:#262626}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Tajawal,sans-serif;min-height:100vh;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+.col{max-width:620px;margin:0 auto;padding:20px 18px 80px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+h1{font-size:24px;font-weight:800;margin:0}
+h2{font-size:20px;margin:28px 0 14px}
+.bt{background:#fff;color:#000;border:0;border-radius:999px;padding:9px 20px;font:800 14px Tajawal,sans-serif;cursor:pointer;text-align:center}
+.bt:disabled{opacity:.5;cursor:default}
+.bt.g{background:#1c1c1c;color:#fff;border:1px solid #333}
+.bt.dn{background:#1c1c1c;color:#ff6b6b;border:1px solid #4a2222}
+.bt.s{padding:6px 14px;font-size:13px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:18px;padding:16px}
+.lb{display:block;font-size:13px;color:var(--mut);margin:0 0 6px}
+input:not([type=file]),textarea{width:100%;background:#000;color:#fff;border:1px solid #333;border-radius:12px;padding:11px;margin-bottom:12px;font:500 15px Tajawal,sans-serif}
+textarea{min-height:100px;resize:vertical}
+input[type=file]{width:100%;color:var(--mut);margin-bottom:10px;font:500 14px Tajawal,sans-serif}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.er{color:#ff6b6b;font-size:13px;min-height:18px;margin-bottom:8px}
+.m{color:var(--mut);font-size:13px;line-height:1.6}
+.it{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--ln)}
+.it:last-child{border-bottom:0}.it:first-child{padding-top:0}
+.th{width:48px;height:72px;border-radius:8px;object-fit:cover;background:#1a1a1a;flex:none;display:block}
+.inf{flex:1;min-width:0}.inf b{display:block;font-size:16px}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;margin-top:6px;border:1px solid #2f2f2f}
+.badge.on{background:#12261a;color:#6be28f;border-color:#1f4a2e}
+.badge.off{background:#2a1a1a;color:#ff9b9b;border-color:#4a2222}
+#pv{width:100px;height:150px;margin-bottom:12px}
+#tt{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:#fff;color:#000;border-radius:999px;padding:10px 20px;font:800 14px Tajawal,sans-serif;z-index:20;max-width:90vw;text-align:center}
+</style></head><body>
+<div class="col">
+  <div class="top"><h1>لوحة الإدارة</h1><button class="bt g s" id="out" hidden>تسجيل الخروج</button></div>
+
+  <section id="login" class="card" hidden>
+    <form id="lf">
+      <label class="lb" for="em">البريد الإلكتروني</label>
+      <input id="em" type="email" dir="ltr" autocomplete="username" required>
+      <label class="lb" for="pw">كلمة المرور</label>
+      <input id="pw" type="password" dir="ltr" autocomplete="current-password" required>
+      <div class="er" id="le"></div>
+      <button class="bt" id="lb" style="width:100%">دخول</button>
+    </form>
+  </section>
+
+  <section id="app" hidden>
+    <h2 id="ft">إضافة كتاب</h2>
+    <form id="f" class="card">
+      <label class="lb" for="ti">عنوان الكتاب *</label>
+      <input id="ti" maxlength="200" required>
+      <label class="lb" for="sd">وصف قصير (يظهر على الكرت)</label>
+      <input id="sd" maxlength="200">
+      <div class="row">
+        <div><label class="lb" for="pr">السعر (د.أ) *</label><input id="pr" type="number" min="0" step="0.001" inputmode="decimal" required></div>
+        <div><label class="lb" for="pg">عدد الصفحات</label><input id="pg" type="number" min="1" step="1" inputmode="numeric"></div>
+      </div>
+      <label class="lb" for="ed">نوع النسخة</label>
+      <input id="ed" list="edl" value="نسخة ورقية" maxlength="60">
+      <datalist id="edl"><option value="نسخة ورقية"><option value="نسخة إلكترونية"><option value="رواية"><option value="مجموعة نصوص"></datalist>
+      <label class="lb" for="dt">التفاصيل الكاملة</label>
+      <textarea id="dt"></textarea>
+      <label class="lb" for="ou">رابط الطلب (اختياري)</label>
+      <input id="ou" type="url" dir="ltr" placeholder="https://...">
+      <label class="lb" for="so">ترتيب الظهور (الأصغر يظهر أولاً)</label>
+      <input id="so" type="number" step="1" inputmode="numeric" value="1">
+      <label class="lb" for="cf">صورة الغلاف</label>
+      <img id="pv" class="th" alt="" hidden>
+      <input id="cf" type="file" accept="image/jpeg,image/png,image/webp,image/*">
+      <div class="er" id="fe"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="bt" id="sb">حفظ</button>
+        <button class="bt g" id="cc" type="button" hidden>إلغاء التعديل</button>
+      </div>
+    </form>
+
+    <h2>كل الكتب <span class="m" id="cn"></span></h2>
+    <div id="list" class="card"></div>
+  </section>
+</div>
+<div id="tt" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ===== مفاتيح Supabase: ضعها هنا (Project Settings → API) ===== */
+const SUPABASE_URL='https://vcvvhtqyalfciycxfptm.supabase.co';
+const SUPABASE_ANON_KEY='sb_publishable_PsE5BU07lVaXhFVZGW1BhQ_Ze0r2Cbq';
+/* ================================================================ */
+const BUCKET='covers';
+const $=id=>document.getElementById(id);
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+const fmt=n=>Number(n).toFixed(3)+' د.أ';
+
+let sb=null,books=[],editing=null,file=null,state=null,tt=null;
+
+function toast(m){const t=$('tt');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>{t.hidden=true},2600)}
+function msgOf(e){
+  const m=(e&&e.message)||'';
+  if(/row-level security|permission|not authorized|JWT/i.test(m))return 'ما عندك صلاحية. تأكد أن إيميل المدير في ملف SQL هو نفس إيميل الدخول.';
+  return m||'حدث خطأ غير متوقع.'}
+
+/* ---------- الدخول ---------- */
+function init(){
+  if(SUPABASE_URL.indexOf('PUT_')===0||!window.supabase){
+    $('login').hidden=false;$('lb').disabled=true;
+    $('le').textContent='أضف SUPABASE_URL و SUPABASE_ANON_KEY في أعلى السكربت.';return}
+  sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  sb.auth.onAuthStateChange((_e,s)=>setView(!!s));
+  sb.auth.getSession().then(({data})=>setView(!!(data&&data.session)));
+}
+function setView(on){
+  if(state===on)return;state=on;
+  $('login').hidden=on;$('app').hidden=!on;$('out').hidden=!on;
+  if(on)setTimeout(()=>{resetForm();loadList()},0);
+  else{books=[];$('list').replaceChildren()}}
+
+$('lf').onsubmit=async e=>{
+  e.preventDefault();$('le').textContent='';$('lb').disabled=true;
+  try{
+    const {error}=await sb.auth.signInWithPassword({email:$('em').value.trim(),password:$('pw').value});
+    if(error)$('le').textContent='البريد أو كلمة المرور غير صحيحة.';
+    else $('pw').value='';
+  }catch(err){$('le').textContent=msgOf(err)}
+  $('lb').disabled=false};
+$('out').onclick=()=>sb.auth.signOut();
+
+/* ---------- القائمة ---------- */
+async function loadList(){
+  const {data,error}=await sb.from('books').select('*')
+    .order('sort_order',{ascending:true}).order('created_at',{ascending:true});
+  if(error){toast(msgOf(error));return}
+  books=data||[];render();
+  if(!editing)$('so').value=books.length?Math.max(...books.map(b=>b.sort_order||0))+1:1}
+
+function render(){
+  const L=$('list');L.replaceChildren();$('cn').textContent='('+books.length+')';
+  if(!books.length){L.appendChild(el('p','m','لا توجد كتب بعد.'));return}
+  books.forEach(b=>{
+    const it=el('div','it');
+    let th;
+    if(b.cover_url){th=new Image();th.className='th';th.alt='';th.src=b.cover_url}else th=el('div','th');
+    const inf=el('div','inf');
+    inf.appendChild(el('b','',b.title));
+    inf.appendChild(el('span','m',[fmt(b.price),b.edition,b.pages?b.pages+' صفحة':''].filter(Boolean).join(' · ')));
+    inf.appendChild(document.createElement('br'));
+    inf.appendChild(el('span','badge '+(b.is_visible?'on':'off'),b.is_visible?'ظاهر في المتجر':'مخفي'));
+    const acts=el('div','acts');
+    const ed=el('button','bt g s','تعديل'),tg=el('button','bt g s',b.is_visible?'إخفاء':'إظهار'),dl=el('button','bt dn s','حذف');
+    ed.onclick=()=>fillForm(b);tg.onclick=()=>toggle(b);dl.onclick=()=>del(b);
+    acts.append(ed,tg,dl);inf.appendChild(acts);
+    it.append(th,inf);L.appendChild(it)})}
+
+async function toggle(b){
+  const {data,error}=await sb.from('books').update({is_visible:!b.is_visible}).eq('id',b.id).select();
+  if(error||!data||!data.length){toast(msgOf(error||new Error('permission')));return}
+  toast(b.is_visible?'تم إخفاء الكتاب':'تم إظهار الكتاب');loadList()}
+
+async function del(b){
+  if(!confirm('حذف "'+b.title+'" نهائياً؟ لا يمكن التراجع.'))return;
+  const {data,error}=await sb.from('books').delete().eq('id',b.id).select();
+  if(error||!data||!data.length){toast(msgOf(error||new Error('permission')));return}
+  removeCover(b.cover_url);
+  if(editing===b.id)resetForm();
+  toast('تم حذف الكتاب');loadList()}
+
+/* ---------- النموذج ---------- */
+function setPreview(u){const p=$('pv');if(u){p.src=u;p.hidden=false}else{p.removeAttribute('src');p.hidden=true}}
+function resetForm(){
+  editing=null;file=null;$('f').reset();$('ed').value='نسخة ورقية';
+  $('so').value=books.length?Math.max(...books.map(b=>b.sort_order||0))+1:1;
+  $('ft').textContent='إضافة كتاب';$('sb').textContent='حفظ';$('cc').hidden=true;$('fe').textContent='';setPreview('')}
+function fillForm(b){
+  editing=b.id;file=null;$('cf').value='';
+  $('ti').value=b.title;$('sd').value=b.short_desc||'';$('dt').value=b.details||'';
+  $('pr').value=b.price;$('pg').value=b.pages||'';$('ed').value=b.edition||'';
+  $('ou').value=b.order_url||'';$('so').value=b.sort_order||0;
+  setPreview(b.cover_url||'');
+  $('ft').textContent='تعديل: '+b.title;$('sb').textContent='حفظ التعديلات';$('cc').hidden=false;$('fe').textContent='';
+  $('f').scrollIntoView({behavior:'smooth',block:'start'})}
+$('cc').onclick=resetForm;
+$('cf').onchange=()=>{file=$('cf').files[0]||null;if(file)setPreview(URL.createObjectURL(file))};
+
+/* ---------- الصور ---------- */
+async function compress(f){
+  try{
+    const bmp=await createImageBitmap(f);
+    const r=Math.min(1,900/bmp.width),w=Math.round(bmp.width*r),h=Math.round(bmp.height*r);
+    const c=document.createElement('canvas');c.width=w;c.height=h;
+    const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,h);x.drawImage(bmp,0,0,w,h);
+    const blob=await new Promise((res,rej)=>c.toBlob(b=>b?res(b):rej(new Error('x')),'image/jpeg',.85));
+    return {blob,ext:'jpg'};
+  }catch(e){
+    if(!/^image\/(jpeg|png|webp)$/.test(f.type))throw new Error('صيغة الصورة غير مدعومة. استخدم JPG أو PNG أو WebP.');
+    if(f.size>3*1024*1024)throw new Error('الصورة أكبر من 3MB.');
+    return {blob:f,ext:f.type.split('/')[1].replace('jpeg','jpg')}}}
+async function upload(f){
+  const {blob,ext}=await compress(f);
+  const name=(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2))+'.'+ext;
+  const {error}=await sb.storage.from(BUCKET).upload(name,blob,{contentType:blob.type||'image/jpeg',cacheControl:'31536000',upsert:false});
+  if(error)throw error;
+  return sb.storage.from(BUCKET).getPublicUrl(name).data.publicUrl}
+async function removeCover(u){
+  if(!u)return;
+  const m=u.split('/storage/v1/object/public/'+BUCKET+'/')[1];if(!m)return;
+  try{await sb.storage.from(BUCKET).remove([decodeURIComponent(m.split('?')[0])])}catch(e){}}
+
+/* ---------- الحفظ ---------- */
+$('f').onsubmit=async e=>{
+  e.preventDefault();const fe=$('fe');fe.textContent='';
+  const title=$('ti').value.trim(),price=parseFloat($('pr').value),ou=$('ou').value.trim();
+  if(!title){fe.textContent='اكتب عنوان الكتاب.';return}
+  if(!isFinite(price)||price<0){fe.textContent='السعر غير صحيح.';return}
+  if(ou&&!/^https?:\/\//i.test(ou)){fe.textContent='رابط الطلب لازم يبدأ بـ https://';return}
+  const pgv=parseInt($('pg').value,10);
+  const rec={title,short_desc:$('sd').value.trim(),details:$('dt').value.trim(),price,
+    pages:pgv>0?pgv:null,edition:$('ed').value.trim()||'نسخة ورقية',order_url:ou||null,
+    sort_order:parseInt($('so').value,10)||0};
+  const old=editing?books.find(b=>b.id===editing):null;
+  $('sb').disabled=true;$('sb').textContent='جارٍ الحفظ…';
+  let newUrl=null;
+  try{
+    if(file){newUrl=await upload(file);rec.cover_url=newUrl}
+    const res=editing?await sb.from('books').update(rec).eq('id',editing).select()
+                     :await sb.from('books').insert(rec).select();
+    if(res.error)throw res.error;
+    if(!res.data||!res.data.length)throw new Error('permission');
+    if(file&&old&&old.cover_url)removeCover(old.cover_url);
+    toast(editing?'تم حفظ التعديلات':'تمت إضافة الكتاب');
+    resetForm();await loadList();
+  }catch(err){
+    if(newUrl)removeCover(newUrl);
+    fe.textContent=msgOf(err);
+  }finally{
+    $('sb').disabled=false;$('sb').textContent=editing?'حفظ التعديلات':'حفظ'}};
+
+init();
+</script></body></html>
